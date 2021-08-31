@@ -24,4 +24,12 @@ FileName -> pingResult_08_31_16-18-00.txt
 
 ```
 
+#Result
+
+![Screenshot](screen_1.PNG)
+
 會將結果在同一個目錄下產出Txt檔
+
+![Screenshot](screen_2.PNG)
+
+
