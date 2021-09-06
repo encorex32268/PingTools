@@ -1,0 +1,33 @@
+------------------Settings------------------ 
+Start Ping     -> 8.8.8.8 
+PingAddress    -> 8.8.8.8  
+Seconds        -> 120 
+WaitTimes      -> 30 
+FileName -> pingResult_09_06_16-22-54.txt 
+------------------Settings------------------ 
+Ping Loop : 1 
+Pinging 8.8.8.8 with 32 bytes of data:
+Reply from 8.8.8.8: bytes=32 time=30ms TTL=111
+Reply from 8.8.8.8: bytes=32 time=92ms TTL=111
+Reply from 8.8.8.8: bytes=32 time=50ms TTL=111
+Reply from 8.8.8.8: bytes=32 time=38ms TTL=111
+
+
+>>>>>>>>>>Ping Tools<<<<<<<<<<
+PingAddress(8.8.8.8) :
+Ping Seconds(120) :
+After Ping Wait Time(30) :
+------------------Settings------------------
+Start Ping     -> 8.8.8.8
+PingAddress    -> 8.8.8.8
+Seconds        -> 120
+WaitTimes      -> 30
+FileName -> pingResult_09_06_16-22-54.txt
+------------------Settings------------------
+
+
+Pinging 8.8.8.8 with 32 bytes of data:
+Reply from 8.8.8.8: bytes=32 time=30ms TTL=111
+Reply from 8.8.8.8: bytes=32 time=92ms TTL=111
+Reply from 8.8.8.8: bytes=32 time=50ms TTL=111
+Reply from 8.8.8.8: bytes=32 time=38ms TTL=111

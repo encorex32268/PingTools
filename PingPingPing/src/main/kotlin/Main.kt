@@ -25,13 +25,40 @@ var pingSeconds = 120
 var pingWaitTime = 30
 var counter = 0
 var wait = 0
+var thread = Thread(runnable)
+val timer = Timer()
+val timerTask = object : TimerTask() {
+    override fun run() {
+        counter++
+        if (counter >= pingSeconds) {
+            if (process.isAlive) {
+                thread.interrupt()
+                process.destroyForcibly()
+                println(">>> $pingSeconds Ping Finish <<<")
+            }
+            wait++
+        }
+        if (wait > pingWaitTime) {
+            resetCounters()
+            thread = Thread(runnable).apply { start() }
+        }
 
+    }
+
+
+}
 
 fun main(args: Array<String>) {
    PingIntit()
 }
 
 private fun PingIntit() {
+    startConsole()
+    thread.start()
+    timer.schedule(timerTask, TIMER_DELAY, TIMER_PERIOD)
+}
+//User Input
+private fun startConsole() {
     println(">>>>>>>>>>Ping Tools<<<<<<<<<<")
     print("PingAddress(8.8.8.8) : ")
     var inputPingAddress = readLine().toString()
@@ -48,35 +75,6 @@ private fun PingIntit() {
     if (inputWaitTime.isNotEmpty()){
         pingWaitTime = inputWaitTime.toInt()
     }
-    startConsole()
-    var thread = Thread(runnable)
-    thread.start()
-
-    val timer = Timer()
-    val timerTask = object : TimerTask() {
-        override fun run() {
-            counter++
-            if (counter >= pingSeconds) {
-                if (process.isAlive) {
-                    thread.interrupt()
-                    process.destroyForcibly()
-                    println(">>> $pingSeconds Ping Finish <<<")
-                }
-                wait++
-            }
-            if (wait > pingWaitTime) {
-                resetCounters()
-                thread = Thread(runnable).apply { start() }
-            }
-
-        }
-
-
-    }
-    timer.schedule(timerTask, TIMER_DELAY, TIMER_PERIOD)
-}
-
-private fun startConsole() {
     val stringBuffer = StringBuffer()
     stringBuffer.apply {
         append("------------------Settings------------------ \n")
@@ -93,7 +91,7 @@ private fun startConsole() {
     fileWriter.write(stringBuffer.toString())
     fileWriter.flush()
 }
-
+//Run command
 fun runSystemCommand(command: String?) {
     try {
         process =  runtime.exec(command)
@@ -117,13 +115,14 @@ fun runSystemCommand(command: String?) {
         e.printStackTrace()
     }
 }
-
+//Get time
 fun getDateString() : String {
     val date = System.currentTimeMillis()
     val pattern = "MM_dd_HH-mm-ss"
     val simpleDateFormat = SimpleDateFormat(pattern)
     return simpleDateFormat.format(Date(date))
 }
+//Reset
 fun resetCounters() {
     wait = 0
     counter = 0
